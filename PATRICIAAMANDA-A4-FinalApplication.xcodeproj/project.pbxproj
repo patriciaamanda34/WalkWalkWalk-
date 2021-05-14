@@ -7,6 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A14C6902632422D000EFC9A /* A4-DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A14C68E2632422D000EFC9A /* A4-DataModel.xcdatamodeld */; };
+		7A6D9C56263B814F009A3320 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9C55263B814F009A3320 /* SettingsTableViewController.swift */; };
+		7A6D9C61263B8FF4009A3320 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9C60263B8FF4009A3320 /* NotificationsTableViewCell.swift */; };
+		7A6D9C64263B970F009A3320 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9C63263B970F009A3320 /* EditProfileViewController.swift */; };
+		7A6D9C7B263BCCBA009A3320 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9C7A263BCCBA009A3320 /* MulticastDelegate.swift */; };
+		7A6D9C80263BCD15009A3320 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9C7F263BCD15009A3320 /* DatabaseProtocol.swift */; };
+		7A6D9C96263BD0EA009A3320 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9C95263BD0EA009A3320 /* CoreDataController.swift */; };
+		7A6D9CAB263BD55F009A3320 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9CAA263BD55F009A3320 /* ProfileViewController.swift */; };
+		7A6D9CC0263BDACB009A3320 /* SavedRoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D9CBF263BDACB009A3320 /* SavedRoutesTableViewController.swift */; };
+		7A8E7A2926418B6800EA3CAA /* ProfileChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E7A2826418B6800EA3CAA /* ProfileChangeDelegate.swift */; };
+		7AB7B5462642B1FC00E270E5 /* UserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7B5452642B1FC00E270E5 /* UserOnboardingViewController.swift */; };
+		7ADB4E342644D505007A3EEE /* EditDailyGoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E332644D505007A3EEE /* EditDailyGoalsViewController.swift */; };
+		7ADB4E372644DB8E007A3EEE /* AddRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E362644DB8E007A3EEE /* AddRouteViewController.swift */; };
+		7ADB4E4C26450939007A3EEE /* SelectStartingPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E4B26450939007A3EEE /* SelectStartingPointViewController.swift */; };
+		7ADB4E5126451AD5007A3EEE /* WeeklyStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E5026451AD5007A3EEE /* WeeklyStatsView.swift */; };
+		7ADB4E5426451F1A007A3EEE /* WeeklyStatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E5326451F1A007A3EEE /* WeeklyStatsViewModel.swift */; };
+		7ADB4E582649037E007A3EEE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E572649037E007A3EEE /* HelpViewController.swift */; };
+		7ADB4E5C264B9DEF007A3EEE /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E5B264B9DEF007A3EEE /* LocationSearchTableViewController.swift */; };
+		7ADB4E7A264E4341007A3EEE /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E72264E4340007A3EEE /* User+CoreDataClass.swift */; };
+		7ADB4E7B264E4341007A3EEE /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E73264E4340007A3EEE /* User+CoreDataProperties.swift */; };
+		7ADB4E7C264E4341007A3EEE /* WalkStats+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E74264E4340007A3EEE /* WalkStats+CoreDataClass.swift */; };
+		7ADB4E7D264E4341007A3EEE /* WalkStats+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E75264E4340007A3EEE /* WalkStats+CoreDataProperties.swift */; };
+		7ADB4E7E264E4341007A3EEE /* Route+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E76264E4340007A3EEE /* Route+CoreDataClass.swift */; };
+		7ADB4E7F264E4341007A3EEE /* Route+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E77264E4340007A3EEE /* Route+CoreDataProperties.swift */; };
+		7ADB4E80264E4341007A3EEE /* SavedRoute+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E78264E4340007A3EEE /* SavedRoute+CoreDataClass.swift */; };
+		7ADB4E81264E4341007A3EEE /* SavedRoute+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB4E79264E4340007A3EEE /* SavedRoute+CoreDataProperties.swift */; };
 		7ADF7987263055F1009468B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF7986263055F1009468B9 /* AppDelegate.swift */; };
 		7ADF7989263055F1009468B9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF7988263055F1009468B9 /* SceneDelegate.swift */; };
 		7ADF798B263055F1009468B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF798A263055F1009468B9 /* ViewController.swift */; };
@@ -14,9 +40,37 @@
 		7ADF7991263055F1009468B9 /* PATRICIAAMANDA_A4_FinalApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF798F263055F1009468B9 /* PATRICIAAMANDA_A4_FinalApplication.xcdatamodeld */; };
 		7ADF7993263055F2009468B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF7992263055F2009468B9 /* Assets.xcassets */; };
 		7ADF7996263055F2009468B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF7994263055F2009468B9 /* LaunchScreen.storyboard */; };
+		7ADF799F26313107009468B9 /* HomeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF799E26313107009468B9 /* HomeMapViewController.swift */; };
+		7ADF79A326313395009468B9 /* MyRoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADF79A226313395009468B9 /* MyRoutesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A14C68F2632422D000EFC9A /* A4-DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "A4-DataModel.xcdatamodel"; sourceTree = "<group>"; };
+		7A6D9C55263B814F009A3320 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		7A6D9C60263B8FF4009A3320 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
+		7A6D9C63263B970F009A3320 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		7A6D9C7A263BCCBA009A3320 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		7A6D9C7F263BCD15009A3320 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		7A6D9C95263BD0EA009A3320 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		7A6D9CAA263BD55F009A3320 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7A6D9CBF263BDACB009A3320 /* SavedRoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRoutesTableViewController.swift; sourceTree = "<group>"; };
+		7A8E7A2826418B6800EA3CAA /* ProfileChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangeDelegate.swift; sourceTree = "<group>"; };
+		7AB7B5452642B1FC00E270E5 /* UserOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnboardingViewController.swift; sourceTree = "<group>"; };
+		7ADB4E332644D505007A3EEE /* EditDailyGoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDailyGoalsViewController.swift; sourceTree = "<group>"; };
+		7ADB4E362644DB8E007A3EEE /* AddRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteViewController.swift; sourceTree = "<group>"; };
+		7ADB4E4B26450939007A3EEE /* SelectStartingPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStartingPointViewController.swift; sourceTree = "<group>"; };
+		7ADB4E5026451AD5007A3EEE /* WeeklyStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyStatsView.swift; sourceTree = "<group>"; };
+		7ADB4E5326451F1A007A3EEE /* WeeklyStatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyStatsViewModel.swift; sourceTree = "<group>"; };
+		7ADB4E572649037E007A3EEE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		7ADB4E5B264B9DEF007A3EEE /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
+		7ADB4E72264E4340007A3EEE /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		7ADB4E73264E4340007A3EEE /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		7ADB4E74264E4340007A3EEE /* WalkStats+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalkStats+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		7ADB4E75264E4340007A3EEE /* WalkStats+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalkStats+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		7ADB4E76264E4340007A3EEE /* Route+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		7ADB4E77264E4340007A3EEE /* Route+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		7ADB4E78264E4340007A3EEE /* SavedRoute+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedRoute+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		7ADB4E79264E4340007A3EEE /* SavedRoute+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedRoute+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		7ADF7983263055F1009468B9 /* PATRICIAAMANDA-A4-FinalApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PATRICIAAMANDA-A4-FinalApplication.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ADF7986263055F1009468B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7ADF7988263055F1009468B9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +80,8 @@
 		7ADF7992263055F2009468B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7ADF7995263055F2009468B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7ADF7997263055F2009468B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7ADF799E26313107009468B9 /* HomeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMapViewController.swift; sourceTree = "<group>"; };
+		7ADF79A226313395009468B9 /* MyRoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoutesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +95,92 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A14C68D2632420D000EFC9A /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				7ADB4E72264E4340007A3EEE /* User+CoreDataClass.swift */,
+				7ADB4E73264E4340007A3EEE /* User+CoreDataProperties.swift */,
+				7ADB4E74264E4340007A3EEE /* WalkStats+CoreDataClass.swift */,
+				7ADB4E75264E4340007A3EEE /* WalkStats+CoreDataProperties.swift */,
+				7ADB4E76264E4340007A3EEE /* Route+CoreDataClass.swift */,
+				7ADB4E77264E4340007A3EEE /* Route+CoreDataProperties.swift */,
+				7ADB4E78264E4340007A3EEE /* SavedRoute+CoreDataClass.swift */,
+				7ADB4E79264E4340007A3EEE /* SavedRoute+CoreDataProperties.swift */,
+				7A14C68E2632422D000EFC9A /* A4-DataModel.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		7A6D9C53263B80F3009A3320 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				7ADF799E26313107009468B9 /* HomeMapViewController.swift */,
+				7ADF79A226313395009468B9 /* MyRoutesTableViewController.swift */,
+				7ADB4E362644DB8E007A3EEE /* AddRouteViewController.swift */,
+				7ADB4E4B26450939007A3EEE /* SelectStartingPointViewController.swift */,
+				7ADB4E5B264B9DEF007A3EEE /* LocationSearchTableViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		7A6D9C54263B812D009A3320 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				7A6D9C55263B814F009A3320 /* SettingsTableViewController.swift */,
+				7A6D9C60263B8FF4009A3320 /* NotificationsTableViewCell.swift */,
+				7A6D9C63263B970F009A3320 /* EditProfileViewController.swift */,
+				7A8E7A2826418B6800EA3CAA /* ProfileChangeDelegate.swift */,
+				7ADB4E332644D505007A3EEE /* EditDailyGoalsViewController.swift */,
+				7ADB4E572649037E007A3EEE /* HelpViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		7A6D9C66263BC562009A3320 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		7A6D9C67263BC56B009A3320 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				7A6D9CAA263BD55F009A3320 /* ProfileViewController.swift */,
+				7A6D9CBF263BDACB009A3320 /* SavedRoutesTableViewController.swift */,
+				7ADB4E5026451AD5007A3EEE /* WeeklyStatsView.swift */,
+				7ADB4E5326451F1A007A3EEE /* WeeklyStatsViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		7A6D9C7D263BCCED009A3320 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				7A6D9C7A263BCCBA009A3320 /* MulticastDelegate.swift */,
+				7A6D9C7F263BCD15009A3320 /* DatabaseProtocol.swift */,
+				7A6D9C95263BD0EA009A3320 /* CoreDataController.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		7A6D9C7E263BCCF6009A3320 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				7A14C68D2632420D000EFC9A /* DataModel */,
+				7A6D9C7D263BCCED009A3320 /* Database */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		7A6D9CC6263BEA0E009A3320 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				7AB7B5452642B1FC00E270E5 /* UserOnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		7ADF797A263055F1009468B9 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +200,12 @@
 		7ADF7985263055F1009468B9 /* PATRICIAAMANDA-A4-FinalApplication */ = {
 			isa = PBXGroup;
 			children = (
+				7A6D9CC6263BEA0E009A3320 /* Onboarding */,
+				7A6D9C7E263BCCF6009A3320 /* Core Data */,
+				7A6D9C67263BC56B009A3320 /* Profile */,
+				7A6D9C66263BC562009A3320 /* Explore */,
+				7A6D9C54263B812D009A3320 /* Settings */,
+				7A6D9C53263B80F3009A3320 /* Map */,
 				7ADF7986263055F1009468B9 /* AppDelegate.swift */,
 				7ADF7988263055F1009468B9 /* SceneDelegate.swift */,
 				7ADF798A263055F1009468B9 /* ViewController.swift */,
@@ -141,9 +289,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ADF798B263055F1009468B9 /* ViewController.swift in Sources */,
+				7ADB4E7F264E4341007A3EEE /* Route+CoreDataProperties.swift in Sources */,
+				7ADB4E7E264E4341007A3EEE /* Route+CoreDataClass.swift in Sources */,
+				7A8E7A2926418B6800EA3CAA /* ProfileChangeDelegate.swift in Sources */,
+				7A14C6902632422D000EFC9A /* A4-DataModel.xcdatamodeld in Sources */,
+				7A6D9C80263BCD15009A3320 /* DatabaseProtocol.swift in Sources */,
 				7ADF7987263055F1009468B9 /* AppDelegate.swift in Sources */,
+				7ADB4E5426451F1A007A3EEE /* WeeklyStatsViewModel.swift in Sources */,
+				7ADB4E342644D505007A3EEE /* EditDailyGoalsViewController.swift in Sources */,
+				7ADB4E80264E4341007A3EEE /* SavedRoute+CoreDataClass.swift in Sources */,
+				7AB7B5462642B1FC00E270E5 /* UserOnboardingViewController.swift in Sources */,
 				7ADF7989263055F1009468B9 /* SceneDelegate.swift in Sources */,
+				7A6D9CAB263BD55F009A3320 /* ProfileViewController.swift in Sources */,
+				7ADB4E7C264E4341007A3EEE /* WalkStats+CoreDataClass.swift in Sources */,
+				7ADB4E7B264E4341007A3EEE /* User+CoreDataProperties.swift in Sources */,
+				7A6D9C56263B814F009A3320 /* SettingsTableViewController.swift in Sources */,
+				7A6D9C7B263BCCBA009A3320 /* MulticastDelegate.swift in Sources */,
+				7ADF79A326313395009468B9 /* MyRoutesTableViewController.swift in Sources */,
+				7A6D9C61263B8FF4009A3320 /* NotificationsTableViewCell.swift in Sources */,
+				7ADB4E81264E4341007A3EEE /* SavedRoute+CoreDataProperties.swift in Sources */,
+				7ADB4E582649037E007A3EEE /* HelpViewController.swift in Sources */,
+				7ADB4E5126451AD5007A3EEE /* WeeklyStatsView.swift in Sources */,
+				7ADF799F26313107009468B9 /* HomeMapViewController.swift in Sources */,
+				7ADB4E5C264B9DEF007A3EEE /* LocationSearchTableViewController.swift in Sources */,
+				7A6D9C64263B970F009A3320 /* EditProfileViewController.swift in Sources */,
+				7ADB4E7A264E4341007A3EEE /* User+CoreDataClass.swift in Sources */,
+				7ADB4E7D264E4341007A3EEE /* WalkStats+CoreDataProperties.swift in Sources */,
+				7A6D9C96263BD0EA009A3320 /* CoreDataController.swift in Sources */,
+				7ADB4E4C26450939007A3EEE /* SelectStartingPointViewController.swift in Sources */,
 				7ADF7991263055F1009468B9 /* PATRICIAAMANDA_A4_FinalApplication.xcdatamodeld in Sources */,
+				7ADB4E372644DB8E007A3EEE /* AddRouteViewController.swift in Sources */,
+				7A6D9CC0263BDACB009A3320 /* SavedRoutesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +523,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		7A14C68E2632422D000EFC9A /* A4-DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7A14C68F2632422D000EFC9A /* A4-DataModel.xcdatamodel */,
+			);
+			currentVersion = 7A14C68F2632422D000EFC9A /* A4-DataModel.xcdatamodel */;
+			path = "A4-DataModel.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		7ADF798F263055F1009468B9 /* PATRICIAAMANDA_A4_FinalApplication.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
