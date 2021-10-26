@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.swift
 //  PATRICIAAMANDA-A4-FinalApplication
 //
-//  Created by Patricia Amanda on 5/14/21.
+//  Created by Patricia Amanda on 6/9/21.
 //
 //
 
@@ -19,9 +19,26 @@ extension User {
     @NSManaged public var userDailySteps: Int16
     @NSManaged public var userDateOfBirth: Date?
     @NSManaged public var userName: String?
-    @NSManaged public var userDailyStepsQuota: Int16
     @NSManaged public var routes: Route?
+    @NSManaged public var savedRoutes: NSSet?
     @NSManaged public var userStats: NSSet?
+
+}
+
+// MARK: Generated accessors for savedRoutes
+extension User {
+
+    @objc(addSavedRoutesObject:)
+    @NSManaged public func addToSavedRoutes(_ value: SavedRoute)
+
+    @objc(removeSavedRoutesObject:)
+    @NSManaged public func removeFromSavedRoutes(_ value: SavedRoute)
+
+    @objc(addSavedRoutes:)
+    @NSManaged public func addToSavedRoutes(_ values: NSSet)
+
+    @objc(removeSavedRoutes:)
+    @NSManaged public func removeFromSavedRoutes(_ values: NSSet)
 
 }
 

@@ -29,6 +29,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+       // print("sceneDidBecomeActive runs")
+        
+        //Checks if it's a different day or not, if it is, create a new WalkStasts for the user.
+        //Comparing dates:
+        //https://www.globalnerdy.com/2020/05/28/how-to-work-with-dates-and-times-in-swift-5-part-3-date-arithmetic/
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if let user = appDelegate?.databaseController?.fetchUser() {
+            var allStats = user.userStats?.allObjects
+            if let stats = allStats?.last as? WalkStats {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd-MM-yyyy"
+                
+                //if the day/month/year is different:
+                if dateFormatter.string(from: stats.walkDateStart ?? Date()) != dateFormatter.string(from: Date()) {
+                    let walkStatsNew = appDelegate?.databaseController?.createWalkStats()
+                    walkStatsNew?.walkDateStart = Date()
+                    user.addToUserStats(walkStatsNew!)
+                    
+                    if allStats!.count > 7 {
+                        allStats?.remove(at: 0) //Removes the first one, only displays a max of 7.
+                    }
+                }
+            }
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

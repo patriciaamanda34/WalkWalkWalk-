@@ -8,29 +8,19 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController, ProfileChangeDelegate {
-    // MARK: - ProfileChangeDelegate methods
 
-    func saveProfileChanges(_ newUser: User) -> Bool {
-        user = newUser
-        tableView.reloadData()
-        return true
-    }
-    
-    func saveDailyStepsChanges(_ dailySteps: Int) -> Bool {
-        user?.userDailySteps = Int16(dailySteps)
-        tableView.reloadData()
-        return true
-    }
-    
+//MARK: - Variables
+    //Cell sections
     let SECTION_EDITPROFILE = 0
     let SECTION_DAILYGOALS = 1
-    let SECTION_NOTIFICATIONS = 2
+    let SECTION_PERMISSIONS = 2
     let SECTION_HELP = 3
     let SECTION_ABOUT = 4
     
+    //Cell identifiers
     let CELL_EDITPROFILE = "editProfileCell"
     let CELL_DAILYGOALS = "dailyGoalsCell"
-    let CELL_NOTIFICATIONS = "notificationsCell"
+    let CELL_PERMISSIONS = "permissionsCell"
     let CELL_HELP = "helpCell"
     let CELL_ABOUT = "aboutCell"
     
@@ -38,32 +28,30 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
     weak var databaseController: DatabaseProtocol?
 
     
+//MARK: - View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
         user = databaseController?.fetchUser()
-        
-     //   print(user?.userName)
-        
-     
-        
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         databaseController?.cleanup()
     }
 
-    // MARK: - Table view data source
+    
+// MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
        
         return 5
     }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
         switch section {
@@ -71,7 +59,7 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
                 return 2
             case SECTION_DAILYGOALS:
                 return 1
-            case SECTION_NOTIFICATIONS:
+            case SECTION_PERMISSIONS:
                 return 1
             case SECTION_HELP:
                 return 1
@@ -86,11 +74,14 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_EDITPROFILE {
             let editProfileCell = tableView.dequeueReusableCell(withIdentifier: CELL_EDITPROFILE, for: indexPath)
+            
             editProfileCell.accessoryType = .none
+            
             if (indexPath.row == 0){
                 editProfileCell.textLabel?.text = "Name"
                 editProfileCell.detailTextLabel?.text = user?.userName
             }
+            
             else if(indexPath.row == 1){
                 editProfileCell.textLabel?.text = "Date of Birth"
                   let dateFormatter = DateFormatter()
@@ -98,7 +89,6 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
                        
                 let date =  dateFormatter.string(from: (user?.userDateOfBirth)!)
 
-                 
                 editProfileCell.detailTextLabel?.text = date
             }
             return editProfileCell
@@ -109,25 +99,36 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
             
             dailyGoalsCell.textLabel?.text = "Number of Steps Taken"
             dailyGoalsCell.detailTextLabel?.text = String(user?.userDailySteps ?? 0)
+            
             return dailyGoalsCell
         }
-        else if indexPath.section == SECTION_NOTIFICATIONS {
-            let notificationsCell = tableView.dequeueReusableCell(withIdentifier: CELL_NOTIFICATIONS, for: indexPath) as! NotificationsTableViewCell
-            notificationsCell.accessoryType = .none
-            notificationsCell.notificationLabel.text = "Push Notifications"
-            return notificationsCell
+        else if indexPath.section == SECTION_PERMISSIONS {
+            let permissionsCell = tableView.dequeueReusableCell(withIdentifier: CELL_PERMISSIONS, for: indexPath) 
+            
+            permissionsCell.textLabel?.text = "Manage Permissions"
+            
+            return permissionsCell
+        }
+        else if indexPath.section == SECTION_ABOUT {
+            
+            let aboutCell = tableView.dequeueReusableCell(withIdentifier: CELL_ABOUT, for: indexPath)
+
+            aboutCell.textLabel?.text = "About"
+            
+            return aboutCell
         }
         else if indexPath.section == SECTION_HELP {
             let helpCell = tableView.dequeueReusableCell(withIdentifier: CELL_HELP, for: indexPath)
-            helpCell.textLabel?.text = "Help"
+           
+            helpCell.textLabel?.text = "Email pama000@student.monash.edu for enquiries."
+           
             return helpCell
         }
-        let aboutCell = tableView.dequeueReusableCell(withIdentifier: CELL_ABOUT, for: indexPath)
-
-        aboutCell.textLabel?.text = "About"
-            return aboutCell
+        return UITableViewCell()
     }
     
+    
+    //Sets the headers of each section.
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == SECTION_EDITPROFILE {
             return "Profile"
@@ -135,8 +136,8 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
         else if section == SECTION_DAILYGOALS {
             return "Daily Goals"
         }
-        else if section == SECTION_NOTIFICATIONS {
-            return "Notifications"
+        else if section == SECTION_PERMISSIONS {
+            return "Permissions"
         }
         else if section == SECTION_HELP {
             return "Help"
@@ -146,40 +147,16 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
         }
         return nil
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        //Asking for permissions:
+        //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
+        if(indexPath.section == SECTION_PERMISSIONS) {
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     
     // MARK: - Navigation
@@ -200,4 +177,18 @@ class SettingsTableViewController: UITableViewController, ProfileChangeDelegate 
     }
     
 
+// MARK: - ProfileChangeDelegate methods
+
+    func saveProfileChanges(_ newUser: User) -> Bool {
+        user = newUser
+        tableView.reloadData()
+        return true
+    }
+    
+    
+    func saveDailyStepsChanges(_ dailySteps: Int) -> Bool {
+        user?.userDailySteps = Int16(dailySteps)
+        tableView.reloadData()
+        return true
+    }
 }

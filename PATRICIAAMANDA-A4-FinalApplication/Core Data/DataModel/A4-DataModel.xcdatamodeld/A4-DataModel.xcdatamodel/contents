@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Coordinate" representedClassName="Coordinate" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Route" representedClassName="Route" syncable="YES">
-        <attribute name="routeFinishLatitude" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
-        <attribute name="routeFinishLongitude" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
-        <attribute name="routeLoopsBack" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="routeName" optional="YES" attributeType="String"/>
-        <attribute name="routeStartLatitude" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
-        <attribute name="routeStartLongitude" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <relationship name="routeEndCoordinate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coordinate"/>
+        <relationship name="routeStartCoordinate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coordinate"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="routes" inverseEntity="User"/>
     </entity>
     <entity name="SavedRoute" representedClassName="SavedRoute" syncable="YES">
         <attribute name="savedRouteName" optional="YES" attributeType="String"/>
+        <relationship name="points" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Coordinate"/>
         <relationship name="routeStats" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route"/>
+        <relationship name="savedByUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="savedRoutes" inverseEntity="User"/>
         <relationship name="savedRouteStats" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WalkStats" inverseName="savedRoute" inverseEntity="WalkStats"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="userDailySteps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="userDailyStepsQuota" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="userDateOfBirth" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userName" attributeType="String"/>
         <relationship name="routes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="user" inverseEntity="Route"/>
+        <relationship name="savedRoutes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SavedRoute" inverseName="savedByUser" inverseEntity="SavedRoute"/>
         <relationship name="userStats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WalkStats"/>
     </entity>
     <entity name="WalkStats" representedClassName="WalkStats" syncable="YES">
-        <attribute name="walkDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="walkDateEnd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="walkDateStart" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="walkDistance" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="walkNoOfSteps" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="walkTime" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -31,9 +36,10 @@
         <relationship name="savedRoute" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedRoute" inverseName="savedRouteStats" inverseEntity="SavedRoute"/>
     </entity>
     <elements>
-        <element name="Route" positionX="-36" positionY="9" width="128" height="134"/>
-        <element name="SavedRoute" positionX="-18" positionY="27" width="128" height="74"/>
+        <element name="Coordinate" positionX="-36" positionY="72" width="128" height="74"/>
+        <element name="Route" positionX="-36" positionY="9" width="128" height="89"/>
+        <element name="SavedRoute" positionX="-18" positionY="27" width="128" height="104"/>
         <element name="User" positionX="-63" positionY="-18" width="128" height="119"/>
-        <element name="WalkStats" positionX="-54" positionY="-9" width="128" height="119"/>
+        <element name="WalkStats" positionX="-54" positionY="-9" width="128" height="134"/>
     </elements>
 </model>

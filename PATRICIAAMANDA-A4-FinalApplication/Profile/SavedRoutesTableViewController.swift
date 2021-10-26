@@ -8,10 +8,14 @@
 import UIKit
 
 class SavedRoutesTableViewController: UITableViewController, DatabaseListener {
+    
+//MARK: - Variables
     var listenerType: ListenerType = .savedRoute
     weak var databaseController : DatabaseProtocol?
     var currentSavedRoutes: [SavedRoute]?
 
+    
+    //MARK: - DatabaseListener Methods
     func onRouteChange(change: DatabaseChange, routes: [Route]) {
         //Do nothing
     }
@@ -26,18 +30,12 @@ class SavedRoutesTableViewController: UITableViewController, DatabaseListener {
     }
     
 
-    
+//MARK: - View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     
@@ -57,22 +55,45 @@ class SavedRoutesTableViewController: UITableViewController, DatabaseListener {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        print(currentSavedRoutes?.count)
-        return currentSavedRoutes?.count ?? 0
+        if section == 0 {
+            return currentSavedRoutes?.count ?? 0
+
+        }
+        else if section == 1 {
+            return 1
+        }
+        return 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "savedRoutesCell", for: indexPath)
+        var cell: UITableViewCell = UITableViewCell()
         
-        if let savedRoutes = currentSavedRoutes{
-            cell.textLabel?.text = savedRoutes[indexPath.row].savedRouteName
+        if indexPath.section == 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: "savedRoutesCell", for: indexPath)
+    
+            if let savedRoutes = currentSavedRoutes {
+                cell.textLabel?.text = savedRoutes[indexPath.row].savedRouteName
+            }
+          
+        }
+        else if indexPath.section == 1 {
+            cell = tableView.dequeueReusableCell(withIdentifier: "savedRoutesCountCell", for: indexPath)
+            if let count = currentSavedRoutes?.count {
+                //Display the number of saved routes if there's more than 0.
+                if count > 0 {
+                cell.textLabel?.text = "There are \(count) session(s) saved."
+                }
+                //Otherwise, display this message.
+                else {
+                cell.textLabel?.text = "No saved sessions have been added yet. Click on a route in 'My Routes' to start one."
+                cell.accessoryType = .none
+                }
+            }
         }
         return cell
     }
@@ -81,45 +102,57 @@ class SavedRoutesTableViewController: UITableViewController, DatabaseListener {
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        if indexPath.section == 0 {
+            return true
+        }
+        return false
     }
     
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if currentSavedRoutes?.count == 0 {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+    }
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            if let name = currentSavedRoutes?[indexPath.row].savedRouteName {
+                //Put a warning out first.
+                let alertController = UIAlertController(title: "Warning", message: "Are you sure you want to delete \(String(describing: name))? This cannot be undone.", preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel,
+                 handler: nil))
+                alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {_ in
+                    //Delete the row from core data
+                    self.databaseController?.removeSavedRoute(savedRoute: self.currentSavedRoutes![indexPath.row])
+                    self.currentSavedRoutes?.remove(at: indexPath.row)
+
+                    //Update table
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    tableView.reloadSections([0,1], with: .automatic)
+                }))
+                present(alertController, animated: true, completion: nil)
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
+    
+    
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if currentSavedRoutes?.count ?? 0 > 0 {
+            if segue.identifier == "savedRouteDetailSegue" {
+                let destination = segue.destination as! SavedRouteDetailViewController
+                
+                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for:cell) {
+                    destination.savedRoute = currentSavedRoutes?[indexPath.row]
+                }
+            }
+        }
     }
-    */
-
 }

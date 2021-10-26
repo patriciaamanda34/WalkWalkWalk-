@@ -2,7 +2,7 @@
 //  WalkStats+CoreDataProperties.swift
 //  PATRICIAAMANDA-A4-FinalApplication
 //
-//  Created by Patricia Amanda on 5/14/21.
+//  Created by Patricia Amanda on 6/9/21.
 //
 //
 
@@ -16,7 +16,8 @@ extension WalkStats {
         return NSFetchRequest<WalkStats>(entityName: "WalkStats")
     }
 
-    @NSManaged public var walkDate: Date?
+    @NSManaged public var walkDateEnd: Date?
+    @NSManaged public var walkDateStart: Date?
     @NSManaged public var walkDistance: Float
     @NSManaged public var walkNoOfSteps: Int32
     @NSManaged public var walkTime: Int32

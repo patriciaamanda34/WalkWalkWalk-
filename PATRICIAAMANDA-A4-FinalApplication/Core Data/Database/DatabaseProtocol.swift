@@ -5,6 +5,7 @@
 //  Created by Patricia Amanda on 4/30/21.
 //
 import Foundation
+import CoreLocation
 
 enum DatabaseChange {
     case add
@@ -34,10 +35,28 @@ protocol DatabaseProtocol: AnyObject {
     func removeListener(listener: DatabaseListener)
     
     func fetchUser()->User?
-    func addUser(name: String, dateOfBirth: Date)
-    //func addRoute(name: String, startLat: double, startLong: double, endLat: double, endLong: double)
     
-    func createRouteInChild()->Route
-    func fetchRouteInChild()->Route?
+    func addUser(name: String, dateOfBirth: Date)
+    
+    func fetchMyRoutes()->[Route]
+    func fetchSavedRoutes()->[SavedRoute]
+    
+    func fetchAllCoordinatesInSavedRoute(savedRoute: SavedRoute)->[CLLocationCoordinate2D]
+    func fetchWalkStatsInUser(user: User)->[WalkStats]
+    
+    func setPointsToSavedRoute(savedRoute : SavedRoute, points: [CLLocationCoordinate2D])
+    
+    func createSavedRoute()->SavedRoute
+    func createWalkStats()->WalkStats
+    
+    func createRouteInChild()->Route?
+    func createCoordinateInChild()->Coordinate
+    func createWalkStatsInChild()->WalkStats
+    func createSavedRouteInChild()->SavedRoute
+    
+    func getCopyOfRoute(route : Route)->Route
+    
+    func removeRoute(route: Route)
+    func removeSavedRoute(savedRoute: SavedRoute)
 }
 

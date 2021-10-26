@@ -9,37 +9,15 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class SelectStartingPointViewController: UIViewController, CLLocationManagerDelegate, LocationSearchSelectedDelegate, UISearchBarDelegate {
+class SelectStartingPointViewController: UIViewController, CLLocationManagerDelegate, LocationSearchSelectedDelegate {
     
-    func updateLocation(selectedLocation: MKPlacemark) -> Bool {
-        mapView.removeAnnotation(mapView.annotations[0])
-
-        currentLocation = selectedLocation.location
-        latitudeLabel.text = String(format: "%.3f",currentLocation?.coordinate.latitude ?? 0)
-        longitudeLabel.text = String(format: "%.3f",currentLocation?.coordinate.longitude ?? 0)
-        var region = MKCoordinateRegion()
-        region.center = currentLocation!.coordinate
-        region.span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01))
-        mapView.setRegion(region, animated: true)
-
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0,longitude: 0)
-
-
-        
-        mapView.addAnnotation(annotation)
-        
-
-        return true
-    }
+    //MARK: - Variables
     
-    @IBOutlet weak var searchBarView: UIView!
     var currCoordinates: CLLocationCoordinate2D?
     var currentLocation: CLLocation?
     let locationManager = CLLocationManager()
 
-   // @IBOutlet weak var UISearchBar: UISearchBar!
-    
+    @IBOutlet weak var searchBarView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -48,158 +26,151 @@ class SelectStartingPointViewController: UIViewController, CLLocationManagerDele
     
     var saveStartingPointDelegate: SaveStartingPointDelegate?
 
-    // @IBOutlet weak var latitudeTextField: UITextField!
     
-//    @IBOutlet weak var longitudeTextField: UITextField!
-    
-    
-    @IBAction func useCurrentLocation(_ sender: Any) {
-        if(mapView.annotations.count > 0){
-            mapView.removeAnnotation(mapView.annotations[0])
-        }
-        latitudeLabel.text = String(format: "%.3f",currentLocation?.coordinate.latitude ?? 0)
-        longitudeLabel.text = String(format: "%.3f",currentLocation?.coordinate.longitude ?? 0)
-        var region = MKCoordinateRegion()
-        region.center = currentLocation!.coordinate
-        region.span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01))
-        mapView.setRegion(region, animated: true)
-
-       // mapView.showsUserLocation = true
-        
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0,longitude: 0)
-
-        mapView.addAnnotation(annotation)
-    }
-    
-    func usePreviousLocation() {
-        latitudeLabel.text = String(format: "%.3f",currCoordinates?.latitude ?? 0)
-        longitudeLabel.text = String(format: "%.3f",currCoordinates?.longitude ?? 0)
-        
-        var region = MKCoordinateRegion()
-        region.center = currCoordinates!
-        region.span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01))
-        mapView.setRegion(region, animated: true)
-
-    }
-    
+//MARK: - View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
      
+        //Setting delegates
         locationManager.delegate = self
         
 
+        //Setting user tracking functionalities; location manager
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        
         locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.activityType = .fitness
         locationManager.distanceFilter = 1
-       //locationManager.location?.horizontalAccuracy
         currentLocation = locationManager.location!
-        // Do any additional setup after loading the view.
+
+        //On default, when this view is displayed it will display user's location.
+        useCurrentLocation(self)
         
-        if let currCoordinates = currCoordinates {
-            useCurrentLocation(self)
+        if let currCoordinates = currCoordinates , (currCoordinates.latitude != 0 && currCoordinates.longitude != 0) {
+            centerToLocation(coordinate: currCoordinates) //Center to currCoordinates.
         }
-        else {
-            usePreviousLocation()
+        else{
+            centerToLocation(coordinate: currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
         }
+        
+        //Instantiating locationSearchTable
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as! LocationSearchTableViewController
         
+        //Instantiating the UISearchController
         resultSearchController?.delegate = locationSearchTable as? UISearchControllerDelegate
-
         
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
         searchBarView.addSubview(resultSearchController!.searchBar)
         
-        let searchBar = resultSearchController!.searchBar
-               searchBar.sizeToFit()
-               searchBar.placeholder = "Search for places"
-              // navigationItem.titleView = resultSearchController?.searchBar
-               resultSearchController?.hidesNavigationBarDuringPresentation = false
-              // resultSearchController?.dimsBackgroundDuringPresentation = true
-               definesPresentationContext = false
-               locationSearchTable.mapView = mapView
-        //resultSearchController?.searchBar
-        
-       // searchContainer.addSubview(searchController.searchBar)
+        resultSearchController?.searchBar.delegate = locationSearchTable
 
-     //   resultSearchController?
-  //  UISearchBar.placeholder = "Search for locations"
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search for places"
         
-       // UISearchBar = resultSearchController?.searchBar
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
         
-       // resultSearchController?.searchBar = searchBar
-      //  let searchBar = resultSearchController!.searchBar
-      //  UISearchBar.sizeToFit()
-      //  UISearchBar.placeholder = "Search for locations"
+        definesPresentationContext = false
         
-      //  searchBar.search
-              // navigationItem.titleView = resultSearchController?.searchBar
-             //  resultSearchController?.hidesNavigationBarDuringPresentation = false
-        
-        
+        locationSearchTable.mapView = mapView
         locationSearchTable.mapView = mapView
         locationSearchTable.locationSearchSelectedDelegate = self
     }
     
+  
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        locationManager.startUpdatingLocation()
+        definesPresentationContext = true
+    }
+    
+    
+//MARK: - Actions
     @IBAction func saveChanges(_ sender: Any) {
         let latitude = CLLocationDegrees(latitudeLabel?.text ?? "") ?? 0
         let longitude = CLLocationDegrees(longitudeLabel?.text ?? "") ?? 0
+        
+        //Calling the delegate method
         let coords = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         if saveStartingPointDelegate?.save(coordinate: coords) != nil {
             navigationController?.popViewController(animated: true)
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        locationManager.stopUpdatingLocation()
+    
+    @IBAction func useCurrentLocation(_ sender: Any) {
+        centerToLocation(coordinate: currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0,longitude: 0))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        locationManager.startUpdatingLocation()
-        definesPresentationContext = true
+    
+    //Function: Make the region center to the location specified.
+    func centerToLocation(coordinate: CLLocationCoordinate2D){
+        for i in mapView.annotations {
+            mapView.removeAnnotation(i)
+        }
         
-       
+        //Updating labels
+        latitudeLabel.text = String(format: "%.3f",coordinate.latitude)
+        longitudeLabel.text = String(format: "%.3f",coordinate.longitude)
+        
+        //Updating region
+        var region = MKCoordinateRegion()
+        region.center = coordinate
+        region.span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01))
+        mapView.setRegion(region, animated: true)
+        
+        //Adding annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
     }
+    
+    
+//MARK: - UISearchController Methods
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         resultSearchController?.becomeFirstResponder()
     }
     
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         resultSearchController?.resignFirstResponder()
-        
     }
-  /*  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            mapView.removeAnnotation(mapView.annotations[0])
-
-            currentLocation = location
-            var region = MKCoordinateRegion()
-            region.center = currentLocation!.coordinate
-            region.span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01))
-            mapView.setRegion(region, animated: true)
     
-           // mapView.showsUserLocation = true
-            }
-           // mapView.userLocation = currentLocation
+    
+//MARK: - LocationSearchSelectedDelegate Function
+    func updateLocation(selectedLocation: MKPlacemark) -> Bool {
+        //Clear all annotations from the previous selections first.
+        for annotation in mapView.annotations {
+           mapView.removeAnnotation(annotation)
         }
-    */
-    
-    /*
-    // MARK: - Navigation
+        
+        //Updating the variable:
+        currentLocation = selectedLocation.location
+        
+        //Updating the labels
+        latitudeLabel.text = String(format: "%.3f",currentLocation?.coordinate.latitude ?? 0)
+        longitudeLabel.text = String(format: "%.3f",currentLocation?.coordinate.longitude ?? 0)
+        
+        //Updating the region
+        var region = MKCoordinateRegion()
+        region.center = currentLocation!.coordinate
+        region.span = MKCoordinateSpan(latitudeDelta: CLLocationDegrees(0.01), longitudeDelta: CLLocationDegrees(0.01))
+        mapView.setRegion(region, animated: true)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        //Placing an annotation.
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0,longitude: 0)
+        mapView.addAnnotation(annotation)
+        
+        return true
     }
-    */
-
 }
 
+//Protocol: To update the ViewController when a search result has been selected.
 protocol LocationSearchSelectedDelegate {
     func updateLocation(selectedLocation: MKPlacemark)->Bool
 }

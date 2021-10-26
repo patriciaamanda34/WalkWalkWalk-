@@ -2,7 +2,7 @@
 //  Route+CoreDataProperties.swift
 //  PATRICIAAMANDA-A4-FinalApplication
 //
-//  Created by Patricia Amanda on 5/14/21.
+//  Created by Patricia Amanda on 6/9/21.
 //
 //
 
@@ -16,12 +16,9 @@ extension Route {
         return NSFetchRequest<Route>(entityName: "Route")
     }
 
-    @NSManaged public var routeFinishLatitude: Double
-    @NSManaged public var routeFinishLongitude: Double
-    @NSManaged public var routeLoopsBack: Bool
     @NSManaged public var routeName: String?
-    @NSManaged public var routeStartLatitude: Double
-    @NSManaged public var routeStartLongitude: Double
+    @NSManaged public var routeEndCoordinate: Coordinate?
+    @NSManaged public var routeStartCoordinate: Coordinate?
     @NSManaged public var user: User?
 
 }

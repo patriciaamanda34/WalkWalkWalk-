@@ -2,7 +2,7 @@
 //  WalkStats+CoreDataClass.swift
 //  PATRICIAAMANDA-A4-FinalApplication
 //
-//  Created by Patricia Amanda on 5/14/21.
+//  Created by Patricia Amanda on 6/9/21.
 //
 //
 

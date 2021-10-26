@@ -9,7 +9,8 @@ import UIKit
 //Bar chart tutorial: https://www.robkerr.com/creating-ios-bar-chart-code-swift/
 class WeeklyStatsView: UIView {
 
-    var viewModel = WeeklyStatsViewModel()
+    var barClickDelegate : BarClickDelegate?
+      var viewModel = WeeklyStatsViewModel()
       var tapRecognizer:UITapGestureRecognizer!
       
       required init?(coder: NSCoder) {
@@ -73,7 +74,11 @@ class WeeklyStatsView: UIView {
           barView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: viewModel.barWidthPctOfTotal).isActive = true
           
           barView.tag = barNumber + 1000  // give each bar a known tag to use in finding the view later
-          barView.backgroundColor = viewModel.barColor
+          
+       
+        barView.backgroundColor = viewModel.barColor
+            
+        
           barView.layer.cornerRadius = viewModel.barCornerRadius
 
           return barView
@@ -89,17 +94,22 @@ class WeeklyStatsView: UIView {
           gapView.leftAnchor.constraint(equalTo: lastBar.rightAnchor).isActive = true
           return gapView
       }
-      
+    
       @objc func handleBarTap() {
           if let hitView = tapRecognizer.view {
               let loc = tapRecognizer.location(in: self)
               if let barViewTapped = hitView.hitTest(loc, with: nil) {
                   for barView in subviews where barView.tag >= 1000 {
-                      barView.backgroundColor = barView.tag == barViewTapped.tag ? viewModel.barColor.withAlphaComponent(0.4) : viewModel.barColor
-                  }
-                  
+                   if(barView.tag == barViewTapped.tag) {
+                    barView.backgroundColor = barView.backgroundColor?.withAlphaComponent(0.4)
+                    if let barClickDelegate = barClickDelegate {
+                        barClickDelegate.barClicked(tag: tag)
+                        }
+                   }
               }
           }
       }
 
+    }
+    
 }

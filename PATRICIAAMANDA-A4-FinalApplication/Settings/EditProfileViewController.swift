@@ -1,49 +1,49 @@
 //
-//  EditDailyGoalsViewController.swift
+//  EditProfileViewController.swift
 //  PATRICIAAMANDA-A4-FinalApplication
 //
-//  Created by Patricia Amanda on 5/7/21.
+//  Created by Patricia Amanda on 4/30/21.
 //
 
 import UIKit
 
-class EditDailyGoalsViewController: UIViewController {
+class EditProfileViewController: UIViewController {
     
 //MARK: - Variables
-    @IBOutlet weak var dailyGoalsTextField: UITextField!
-   
     weak var profileChangeDelegate: ProfileChangeDelegate?
     
     var user : User?
     
-    
-//MARK: - View Methods
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var nameTextField: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
-        dailyGoalsTextField.text = String(user?.userDailySteps ?? 0)
+        nameTextField.text = user?.userName
+        
+        datePicker.date = user?.userDateOfBirth ?? Date()
     }
     
-    
-//MARK: -Actions
-    @IBAction func saveChanges(_ sender: UIButton) {
-        //Error checking
-        if(dailyGoalsTextField.text == "") {
-            displayMessage(title: "Warning", message: "Daily Goals cannot be empty.")
+
+//MARK: - Actions
+    @IBAction func saveChanges(_ sender: Any) {
+        if(nameTextField.text == "") {
+            displayMessage(title: "Warning", message: "Name cannot be empty.")
             return
         }
-        
-        
-        if let profileChangeDelegate = profileChangeDelegate {
-            let dailySteps = Int(dailyGoalsTextField.text ?? "") ?? 0
-            if (profileChangeDelegate.saveDailyStepsChanges(dailySteps)) {
+        user?.userName = nameTextField.text
+        user?.userDateOfBirth = datePicker.date
+      
+        if let user = user, let profileChangeDelegate = profileChangeDelegate {
+            if (profileChangeDelegate.saveProfileChanges(user)) {
                 navigationController?.popViewController(animated: true)
             }
         }
     }
     
-
+    
     func displayMessage(title: String, message: String){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -52,4 +52,5 @@ class EditDailyGoalsViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
+
 }
